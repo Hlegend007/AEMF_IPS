@@ -7,13 +7,13 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from config import SETTINGS, SIGNATURES_FILE
-from aegis.entropy import shannon_entropy
-from aegis.models import Fragment
-from aegis.normalizer import RecursiveNormalizer
-from aegis.reassembler import reassemble
-from aegis.signatures import SignatureDB
-from aegis.monitor import AegisMonitor
-from aegis.logger import BlockLogger
+from aemf.entropy import shannon_entropy
+from aemf.models import Fragment
+from aemf.normalizer import RecursiveNormalizer
+from aemf.reassembler import reassemble
+from aemf.signatures import SignatureDB
+from aemf.monitor import AEMFMonitor
+from aemf.logger import BlockLogger
 from shadow.mutator import encode_layers
 from shadow.attacks import HTTP_DESYNC_PAYLOADS, ICMP_TUNNEL_PAYLOADS, Shadow
 
@@ -38,7 +38,7 @@ def test_overlap_reassembly_later_wins():
 
 def test_icmp_detection_and_block(tmp_path):
     log = BlockLogger(tmp_path/"block.log")
-    monitor = AegisMonitor(SETTINGS, SignatureDB(SIGNATURES_FILE), log, simulation=True)
+    monitor = AEMFMonitor(SETTINGS, SignatureDB(SIGNATURES_FILE), log, simulation=True)
     payload = encode_layers("ncat -e /bin/sh", ["base64"])
     chunks = [payload[i:i+4].encode() for i in range(0, len(payload), 4)]
     result = None
@@ -94,7 +94,7 @@ def test_icmp_live_plan_has_completion_payload():
 def test_stale_icmp_session_is_analyzed(tmp_path):
     settings = replace(SETTINGS, session_ttl=0.01, gc_interval=0.01)
     log = BlockLogger(tmp_path / "block.log")
-    monitor = AegisMonitor(settings, SignatureDB(SIGNATURES_FILE), log, simulation=True)
+    monitor = AEMFMonitor(settings, SignatureDB(SIGNATURES_FILE), log, simulation=True)
     monitor.process_fragment(
         ("1.1.1.1", 99), "ICMP",
         Fragment(0, b"ncat -e /bin/sh", time.time()),

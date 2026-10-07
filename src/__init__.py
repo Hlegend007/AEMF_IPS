@@ -1,1 +1,1 @@
-"""Aegis IPS application package."""
+"""AEMF IPS application package."""

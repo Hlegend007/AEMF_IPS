@@ -1,5 +1,5 @@
 """Active-session state table."""
 
-from aegis.state import StateTable
+from aemf.state import StateTable
 
 __all__ = ["StateTable"]

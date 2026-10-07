@@ -1,5 +1,5 @@
 """Signature and anomaly detection."""
 
-from aegis.detector import DetectionEngine
+from aemf.detector import DetectionEngine
 
 __all__ = ["DetectionEngine"]

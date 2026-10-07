@@ -1,6 +1,6 @@
 """ICMP payload reassembly."""
 
-from aegis.reassembler import reassemble
+from aemf.reassembler import reassemble
 
 
 def reassemble_icmp(fragments):

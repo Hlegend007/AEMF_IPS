@@ -5,15 +5,15 @@ import sys
 import time
 
 from config import SETTINGS, BLOCK_LOG, SIGNATURES_FILE
-from aegis.logger import BlockLogger
-from aegis.models import Fragment
-from aegis.monitor import AegisMonitor
-from aegis.performance import run_processing_benchmark
-from aegis.signatures import SignatureDB
+from aemf.logger import BlockLogger
+from aemf.models import Fragment
+from aemf.monitor import AEMFMonitor
+from aemf.performance import run_processing_benchmark
+from aemf.signatures import SignatureDB
 from shadow.attacks import Shadow
 
 def make_monitor(simulation=True):
-    return AegisMonitor(
+    return AEMFMonitor(
         SETTINGS,
         SignatureDB(SIGNATURES_FILE),
         BlockLogger(BLOCK_LOG),
@@ -55,13 +55,13 @@ def live(args):
         raise SystemExit("Live capture/prevention requires Linux. On Windows use: python main.py simulate --attack both")
     monitor = make_monitor(simulation=args.simulate_firewall)
     monitor.start_live(args.interface)
-    print("[Aegis] Running. Press Ctrl+C to stop.")
+    print("[AEMF] Running. Press Ctrl+C to stop.")
     try:
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
         monitor.stop()
-        print("\n[Aegis] stopped.")
+        print("\n[AEMF] stopped.")
 
 def benchmark(packets):
     monitor = make_monitor(simulation=True)
@@ -90,7 +90,7 @@ def unblock(args):
     print(f"UNBLOCK recorded for {args.mac}")
 
 def status():
-    print("AEMF-IPS / Aegis IPS")
+    print("AEMF-IPS / AEMF IPS")
     print(f"Platform: {platform.system()} {platform.release()}")
     print(f"Python: {sys.version.split()[0]}")
     print(f"Simulation available: yes")
@@ -119,7 +119,7 @@ def _box(title, lines, width=72):
 
 def _startup_screen():
     _clear_screen()
-    _box("AEGIS IPS", [
+    _box("AEMF IPS", [
         "Intrusion Prevention System  v1.0.0",
         "Detecting ICMP Tunneling and HTTP Splitter Attacks",
         "",
@@ -140,7 +140,7 @@ def _view_sessions(monitor):
         lines.extend(f"{key} | fragments: {count}" for key, count in sessions.items())
     else:
         lines.append("No active sessions.")
-    _box("AEGIS IPS - ACTIVE SESSIONS", lines)
+    _box("AEMF IPS - ACTIVE SESSIONS", lines)
     _pause()
 
 def _read_block_events():
@@ -163,7 +163,7 @@ def _view_blocked(monitor):
         lines.extend(["", "Recent block events:"])
         for fields in events[-10:]:
             lines.append(f"{fields[1]} | {fields[2]} | {fields[3]}")
-    _box("AEGIS IPS - BLOCKED DEVICES", lines)
+    _box("AEMF IPS - BLOCKED DEVICES", lines)
     _pause()
 
 def _view_log():
@@ -181,7 +181,7 @@ def _view_log():
             ])
         elif fields[1] == "UNBLOCK":
             lines.append(f"{fields[0]}  UNBLOCK  {fields[2]}  {fields[4]}")
-    _box("AEGIS IPS - BLOCK LOG", lines or ["No block events recorded."])
+    _box("AEMF IPS - BLOCK LOG", lines or ["No block events recorded."])
     _pause()
 
 def _unblock_from_menu(monitor):
@@ -200,7 +200,7 @@ def _unblock_from_menu(monitor):
 
 def _settings_screen():
     _clear_screen()
-    _box("AEGIS IPS - SETTINGS", [
+    _box("AEMF IPS - SETTINGS", [
         f"HTTP entropy threshold: {SETTINGS.entropy_threshold}",
         f"ICMP entropy threshold: {SETTINGS.icmp_entropy_threshold}",
         f"Session TTL: {SETTINGS.session_ttl}s",
@@ -221,7 +221,7 @@ def _start_live_from_menu():
     monitor = make_monitor(simulation=firewall != "n")
     try:
         monitor.start_live(interface)
-        input("\nAegis is monitoring. Press ENTER to stop live capture...")
+        input("\nAEMF is monitoring. Press ENTER to stop live capture...")
     except Exception as exc:
         print(f"Live capture failed: {exc}")
         _pause()
@@ -233,7 +233,7 @@ def menu():
     _startup_screen()
     while True:
         _clear_screen()
-        _box("AEGIS IPS - MAIN MENU", [
+        _box("AEMF IPS - MAIN MENU", [
             "[1]  Start live monitoring",
             "[2]  View active sessions",
             "[3]  View blocked MAC addresses",
@@ -263,23 +263,23 @@ def menu():
             _settings_screen()
         elif choice == "8":
             _clear_screen()
-            _box("ABOUT AEGIS IPS", [
+            _box("ABOUT AEMF IPS", [
                 "A modular academic intrusion prevention prototype.",
                 "Packet capture, session tracking, normalization, detection,",
                 "MAC prevention, evidence logging, and safe simulation.",
             ])
             _pause()
         elif choice == "9":
-            print("Exiting Aegis IPS.")
+            print("Exiting AEMF IPS.")
             return
         else:
             print("Invalid option.")
 
 def main():
-    parser = argparse.ArgumentParser(prog="aemf-ips", description="AEMF-IPS / Aegis IPS academic prototype")
+    parser = argparse.ArgumentParser(prog="aemf-ips", description="AEMF-IPS / AEMF IPS academic prototype")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p = sub.add_parser("simulate", help="Run the complete offline Shadow/Aegis demo")
+    p = sub.add_parser("simulate", help="Run the complete offline Shadow/AEMF demo")
     p.add_argument("--attack", choices=["icmp", "http", "both"], default="both")
     p.set_defaults(func=lambda a: simulate(a.attack))
 

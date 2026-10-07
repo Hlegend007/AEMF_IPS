@@ -1,1 +1,0 @@
-"""Aegis IPS package."""

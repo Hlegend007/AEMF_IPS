@@ -90,7 +90,7 @@ def unblock(args):
     print(f"UNBLOCK recorded for {args.mac}")
 
 def status():
-    print("AEMF-IPS / Aegis IPS")
+    print("AEMF_ips / Aegis IPS")
     print(f"Platform: {platform.system()} {platform.release()}")
     print(f"Python: {sys.version.split()[0]}")
     print(f"Simulation available: yes")
@@ -276,7 +276,7 @@ def menu():
             print("Invalid option.")
 
 def main():
-    parser = argparse.ArgumentParser(prog="aemf-ips", description="AEMF-IPS / Aegis IPS academic prototype")
+    parser = argparse.ArgumentParser(prog="AEMF_ips", description="AEMF_ips / Aegis IPS academic prototype")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p = sub.add_parser("simulate", help="Run the complete offline Shadow/Aegis demo")

@@ -1,0 +1,107 @@
+[
+  {
+    "name": "reverse_shell_ncat",
+    "pattern": "\\bncat\\b|\\bnetcat\\b|bash\\s+.*-i|/bin/sh",
+    "description": "Reverse shell / command shell pattern",
+    "severity": "CRITICAL",
+    "protocol": "BOTH"
+  },
+  {
+    "name": "directory_traversal",
+    "pattern": "(\\.\\./)+|\\.\\.[\\\\/]+|/etc/passwd",
+    "description": "Directory traversal attempt",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "sql_injection",
+    "pattern": "(?i)\\bUNION\\s+SELECT\\b|\\bOR\\s+1\\s*=\\s*1\\b",
+    "description": "SQL injection pattern",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "command_injection",
+    "pattern": "(?:;|\\|)\\s*(?:ncat|netcat|whoami|bash|sh)\\b",
+    "description": "Command injection pattern",
+    "severity": "HIGH",
+    "protocol": "BOTH"
+  },
+  {
+    "name": "xss",
+    "pattern": "<script\\b|on(?:error|load|click)\\s*=",
+    "description": "Cross-site scripting pattern",
+    "severity": "MEDIUM",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_cl_te",
+    "pattern": "(?is)content-length\\s*:\\s*\\d+.*transfer-encoding\\s*:\\s*chunked",
+    "description": "Content-Length and Transfer-Encoding framing mismatch",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_te_cl",
+    "pattern": "(?is)transfer-encoding\\s*:\\s*chunked.*content-length\\s*:\\s*\\d+",
+    "description": "Transfer-Encoding and Content-Length framing mismatch",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_te_te_obfuscation",
+    "pattern": "(?im)^transfer-encoding\\s*:\\s*(?:chunked\\s*,\\s*identity|xchunked)\\s*$",
+    "description": "Obfuscated or ambiguous Transfer-Encoding header",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_zero_length_desync",
+    "pattern": "(?is)(?:content-length\\s*:\\s*0|transfer-encoding\\s*:\\s*chunked).*?\\r?\\n\\r?\\n(?:GET|POST|PUT|DELETE)\\s+",
+    "description": "Zero-length framing followed by another HTTP request",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_h2_downgrade_framing",
+    "pattern": "(?is)^:method\\s*:\\s*\\w+.*(?:content-length|transfer-encoding)\\s*:",
+    "description": "HTTP/2 pseudo-headers carrying ambiguous HTTP/1 framing",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_crlf_injection",
+    "pattern": "(?i)%0d%0a|%0a%0d|%0d|%0a",
+    "description": "Encoded CRLF sequence in an HTTP request",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_dual_content_length",
+    "pattern": "(?is)(?:content-length\\s*:\\s*\\d+.*){2}",
+    "description": "Multiple Content-Length headers",
+    "severity": "HIGH",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "http_expect_continue",
+    "pattern": "(?im)^expect\\s*:\\s*100-continue\\s*$",
+    "description": "Expect 100-continue desynchronization trigger",
+    "severity": "MEDIUM",
+    "protocol": "HTTP"
+  },
+  {
+    "name": "icmp_tunnel_tool_marker",
+    "pattern": "(?i)\\b(?:LOKI2?|PTUNNEL(?:-NG)?|ICMPSH|PINGRAT|BPFD(?:OOR)?|ICMP[_-]?GOSH)\\b",
+    "description": "Known ICMP tunnel tool or protocol marker",
+    "severity": "HIGH",
+    "protocol": "ICMP"
+  },
+  {
+    "name": "icmp_tunnel_magic_header",
+    "pattern": "(?i)\\b(?:GOST|BPFD)\\b.*(?:magic|session|len|seq)",
+    "description": "ICMP tunnel magic or session header",
+    "severity": "HIGH",
+    "protocol": "ICMP"
+  }
+]

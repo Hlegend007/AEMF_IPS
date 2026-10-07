@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aemf-ips-aegis"
+version = "1.0.0"
+description = "AEMF-IPS / Aegis intrusion prevention system prototype"
+requires-python = ">=3.10"
+dependencies = [
+    "scapy>=2.5.0",
+    "psutil>=5.9.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

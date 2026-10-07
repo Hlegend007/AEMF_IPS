@@ -1,7 +1,5 @@
 # AEMF-IPS / Aegis IPS Prototype
 
-A modular academic prototype based only on the supplied 39-page project PDF.
-
 ## Modes
 
 - **Simulation mode (Windows/Linux):** exercises Shadow -> Aegis end-to-end without raw sockets or firewall changes.

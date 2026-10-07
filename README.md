@@ -1,4 +1,4 @@
-# AEMF-IPS / Aegis IPS Prototype
+# AEMF_ips / Aegis IPS Prototype
 
 ## Modes
 

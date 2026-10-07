@@ -15,59 +15,59 @@ ICMP_TUNNEL_PAYLOADS = {
     "redirect": (5, 1, "BPFDoor magic=BPFD session=42|C2-DATA"),
     "time_exceeded": (11, 0, "GOST magic=GOST len=24 session=42|QUIC-DATA"),
     "traceroute": (30, 0, "ICMP_GOSH session=42 seq=1|C2-DATA"),
-    "large_payload": (8, 0, "AEGIS-LAB " + ("A" * 220)),
+    "large_payload": (8, 0, "AEMF-LAB " + ("A" * 220)),
 }
 
 HTTP_DESYNC_PAYLOADS = {
     "cl_te": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Content-Length: 6\r\nTransfer-Encoding: chunked\r\n\r\n0\r\n\r\nX"
     ),
     "te_cl": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Transfer-Encoding: chunked\r\nContent-Length: 4\r\n\r\n0\r\n\r\n"
-        "GET /aegis-test HTTP/1.1\r\nHost: lab\r\n\r\n"
+        "GET /aemf-test HTTP/1.1\r\nHost: lab\r\n\r\n"
     ),
     "te_te": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Transfer-Encoding: chunked, identity\r\nTransfer-Encoding: xchunked\r\n\r\n"
         "0\r\n\r\n"
     ),
     "cl_0": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\nContent-Length: 0\r\n\r\n"
-        "GET /aegis-test HTTP/1.1\r\nHost: lab\r\n\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\nContent-Length: 0\r\n\r\n"
+        "GET /aemf-test HTTP/1.1\r\nHost: lab\r\n\r\n"
     ),
     "te_0": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Transfer-Encoding: chunked\r\n\r\n0\r\n\r\n"
-        "GET /aegis-test HTTP/1.1\r\nHost: lab\r\n\r\n"
+        "GET /aemf-test HTTP/1.1\r\nHost: lab\r\n\r\n"
     ),
     "0_cl": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\nContent-Length: 0\r\n\r\n"
-        "GET /aegis-test HTTP/1.1\r\nHost: lab\r\n\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\nContent-Length: 0\r\n\r\n"
+        "GET /aemf-test HTTP/1.1\r\nHost: lab\r\n\r\n"
     ),
     "h2_cl": (
-        ":method: POST\r\n:path: /aegis-test\r\n"
+        ":method: POST\r\n:path: /aemf-test\r\n"
         "content-length: 4\r\n\r\nTEST"
     ),
     "h2_te": (
-        ":method: POST\r\n:path: /aegis-test\r\n"
+        ":method: POST\r\n:path: /aemf-test\r\n"
         "transfer-encoding: chunked\r\n\r\n0\r\n\r\n"
     ),
     "crlf_injection": (
-        "GET /aegis-test?next=%0d%0aX-Aegis-Injected:%20yes HTTP/1.1\r\n"
+        "GET /aemf-test?next=%0d%0aX-AEMF-Injected:%20yes HTTP/1.1\r\n"
         "Host: lab\r\n\r\n"
     ),
     "dual_content_length": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Content-Length: 4\r\nContent-Length: 11\r\n\r\nTEST"
     ),
     "expect_continue": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Expect: 100-continue\r\nContent-Length: 4\r\n\r\nTEST"
     ),
     "pause": (
-        "POST /aegis-test HTTP/1.1\r\nHost: lab\r\n"
+        "POST /aemf-test HTTP/1.1\r\nHost: lab\r\n"
         "Content-Length: 4\r\n\r\nTEST"
     ),
 }

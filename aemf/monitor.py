@@ -8,7 +8,7 @@ from .prevention import PreventionEngine
 from .reassembler import reassemble
 from .state import StateTable
 
-class AegisMonitor:
+class AEMFMonitor:
     def __init__(self, settings, signature_db, logger, simulation=True):
         self.settings = settings
         self.state = StateTable(settings.session_ttl)
@@ -78,7 +78,7 @@ class AegisMonitor:
 
     def start_live(self, iface=None):
         if platform.system().lower() != "linux":
-            raise RuntimeError("Live Aegis capture is Linux-primary; use simulation mode on Windows.")
+            raise RuntimeError("Live AEMF capture is Linux-primary; use simulation mode on Windows.")
         try:
             from scapy.all import sniff
         except ImportError as exc:
@@ -119,7 +119,7 @@ class AegisMonitor:
 
         # The exact BPF expressions required by the PDF.
         bpf = "icmp or (tcp and dst port 80)"
-        print(f"[Aegis] Live capture on {iface or 'default interface'} with BPF: {bpf}")
+        print(f"[AEMF] Live capture on {iface or 'default interface'} with BPF: {bpf}")
         self.sniff_thread = threading.Thread(
             target=lambda: sniff(iface=iface, filter=bpf, prn=handle, store=False, stop_filter=lambda _: self.stop_event.is_set()),
             daemon=True,

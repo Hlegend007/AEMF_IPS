@@ -1,6 +1,6 @@
 """TCP payload reassembly."""
 
-from aegis.reassembler import reassemble
+from aemf.reassembler import reassemble
 
 
 def reassemble_tcp(fragments):

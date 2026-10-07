@@ -27,7 +27,7 @@ def main():
     source = input("Kali source IP [192.168.56.10]: ").strip() or "192.168.56.10"
 
     while True:
-        print("\nAegis Shadow attack menu")
+        print("\nAEMF Shadow attack menu")
         print("1. Send ICMP baseline test")
         print("2. Send one ICMP tunnel variant")
         print("3. Send all ICMP tunnel variants")

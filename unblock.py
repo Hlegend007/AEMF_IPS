@@ -5,19 +5,19 @@ import os
 import platform
 
 from config import BLOCK_LOG, SETTINGS, SIGNATURES_FILE
-from aegis.logger import BlockLogger
-from aegis.monitor import AegisMonitor
-from aegis.signatures import SignatureDB
+from aemf.logger import BlockLogger
+from aemf.monitor import AEMFMonitor
+from aemf.signatures import SignatureDB
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Remove an Aegis MAC block")
+    parser = argparse.ArgumentParser(description="Remove an AEMF MAC block")
     parser.add_argument("mac")
     parser.add_argument("--admin", default=os.getenv("USERNAME", "administrator"))
     parser.add_argument("--reason", default="Manual unblock")
     args = parser.parse_args()
 
-    monitor = AegisMonitor(
+    monitor = AEMFMonitor(
         SETTINGS,
         SignatureDB(SIGNATURES_FILE),
         BlockLogger(BLOCK_LOG),

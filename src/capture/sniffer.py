@@ -1,7 +1,7 @@
-"""Packet capture boundary for the Aegis monitor."""
+"""Packet capture boundary for the AEMF monitor."""
 
-from aegis.monitor import AegisMonitor
+from aemf.monitor import AEMFMonitor
 
 BPF_FILTER = "icmp or (tcp and dst port 80)"
 
-__all__ = ["AegisMonitor", "BPF_FILTER"]
+__all__ = ["AEMFMonitor", "BPF_FILTER"]

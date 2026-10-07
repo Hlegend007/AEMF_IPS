@@ -1,5 +1,5 @@
 """Signature database access."""
 
-from aegis.signatures import Signature, SignatureDB
+from aemf.signatures import Signature, SignatureDB
 
 __all__ = ["Signature", "SignatureDB"]
